@@ -1,54 +1,27 @@
-import urllib.request
-
-def download():
-    url = 'https://services9.arcgis.com/XenOZPW9k4gDSO12/arcgis/rest/services/COVID19_JapanCaseData/FeatureServer/0/query?where=%E9%80%9A%E3%81%97%3E-1&returnIdsOnly=false&returnCountOnly=false&&f=pgeojson&outFields=*&orderByFields=%E9%80%9A%E3%81%97'
-    title = 'COVID-19_data.json'
-    urllib.request.urlretrieve(url, "{0}".format(title))
-    
-    
-    import download
-import json
-from collections import defaultdict
+# インストールした discord.py を読み込む
 import discord
 
-TOKEN = 'korona'
-CHANNEK_ID = '739097587767836704'
+# 自分のBotのアクセストークンに置き換えてください
+TOKEN = 'NzM5MjIwMDE2NzkyMjA3NDUx.XyXSSg.7lhS0AZW61P6bYJa8R1F-LQuBWg'
+
+# 接続に必要なオブジェクトを生成
 client = discord.Client()
 
-# 起動時に表示
+# 起動時に動作する処理
 @client.event
 async def on_ready():
-    print('Logged in as')
-    print(client.user.name)
-    print(client.user.id)
-    print('------')
+    # 起動したらターミナルにログイン通知が表示される
+    print('ログインしました')
 
-# メッセージを受け取った時
+# メッセージ受信時に動作する処理
 @client.event
 async def on_message(message):
-    # botからのメッセージは無視
+    # メッセージ送信者がBotだった場合は無視する
     if message.author.bot:
         return
-    if message.content.startswith("!count"):
-        #jsonファイルをロード
-        download.download()
-        json_open = open('COVID-19_data.json', 'r', encoding="utf-8_sig")
-        json_load = json.load(json_open)
-        jsn = json_load
+    # 「/neko」と発言したら「にゃーん」が返る処理
+    if message.content == '/neko':
+        await message.channel.send('にゃーん')
 
-        #居住都道府県名と数をdefaultdictで保持
-        properties = defaultdict(int)
-        for f in jsn['features']:
-            property = f['properties']['居住都道府県']
-            if property == '中華人民共和国' or property == '調査中' or property == '不明':
-                continue
-            if property not in properties:
-                properties[property] = 0
-            properties[property] += 1
-        #一行ずつ出力すると時間がかかるので出力内容をあらかじめ保持
-        say = ''
-        for p in properties:
-            say += p + ' ' + str(properties[p]) + '\n'
-        await message.channel.send(say)
-
+# Botの起動とDiscordサーバーへの接続
 client.run(TOKEN)
