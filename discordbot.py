@@ -18,8 +18,8 @@ async def ping(ctx):
     await ctx.send('pong')
 
 @bot.command()
-async def エッサエッサ(ctx):
-    await ctx.send('ホイサホイサ')
+async def neko(ctx):
+    await ctx.send('にゃーん')
     
     
 bot.run(token)
