@@ -11,7 +11,7 @@ import json
 from collections import defaultdict
 import discord
 
-TOKEN = 'corona count'
+TOKEN = 'corona'
 CHANNEK_ID = '739097587767836704'
 client = discord.Client()
 
