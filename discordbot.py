@@ -1,27 +1,6 @@
-# インストールした discord.py を読み込む
-import discord
+import urllib.request
 
-# 自分のBotのアクセストークンに置き換えてください
-TOKEN = 'NzM5MjIwMDE2NzkyMjA3NDUx.XyXSSg.7lhS0AZW61P6bYJa8R1F-LQuBWg'
-
-# 接続に必要なオブジェクトを生成
-client = discord.Client()
-
-# 起動時に動作する処理
-@client.event
-async def on_ready():
-    # 起動したらターミナルにログイン通知が表示される
-    print('ログインしました')
-
-# メッセージ受信時に動作する処理
-@client.event
-async def on_message(message):
-    # メッセージ送信者がBotだった場合は無視する
-    if message.author.bot:
-        return
-    # 「/neko」と発言したら「にゃーん」が返る処理
-    if message.content == '/neko':
-        await message.channel.send('にゃーん')
-
-# Botの起動とDiscordサーバーへの接続
-client.run(TOKEN)
+def download():
+    url = 'https://services9.arcgis.com/XenOZPW9k4gDSO12/arcgis/rest/services/COVID19_JapanCaseData/FeatureServer/0/query?where=%E9%80%9A%E3%81%97%3E-1&returnIdsOnly=false&returnCountOnly=false&&f=pgeojson&outFields=*&orderByFields=%E9%80%9A%E3%81%97'
+    title = 'COVID-19_data.json'
+    urllib.request.urlretrieve(url, "{0}".format(title))
