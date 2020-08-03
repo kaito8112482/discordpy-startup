@@ -11,8 +11,8 @@ import json
 from collections import defaultdict
 import discord
 
-TOKEN = '任意のトークン'
-CHANNEK_ID = '任意のチャンネルID'
+TOKEN = 'neko'
+CHANNEK_ID = '739097587767836704'
 client = discord.Client()
 
 # 起動時に表示
